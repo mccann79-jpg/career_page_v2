@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selected Research — Brendan McCann</title>
+
+<link rel="icon" href="assets/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/img/favicon-512.png">
+<link rel="apple-touch-icon" href="assets/img/favicon-180.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════
+   CSS — all styles inline to avoid path issues
+   ═══════════════════════════════════════════════════ */
+:root {
+  --bg: #f3f2ef;
+  --surface: #ffffff;
+  --border: #dbd8d3;
+  --border-lt: #eae7e2;
+  --text: #1a1a1a;
+  --text2: #5c5c5c;
+  --text3: #999;
+  --accent: #263544;
+  --accent-h: #1a2633;
+  --accent-t: #fff;
+  --font: 'DM Sans', system-ui, sans-serif;
+  --serif: 'Newsreader', Georgia, serif;
+  --rad: 8px;
+  --rad-s: 5px;
+  --max: 1080px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.55;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+/* ── Header ──────────────────────────────────── */
+.hdr {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 24px 0 0;
+  position: sticky; top: 0; z-index: 100;
+}
+
+.hdr-inner { display: flex; gap: 36px; align-items: flex-start; }
+
+.id { display: flex; gap: 14px; flex-shrink: 0; align-items: flex-start; }
+
+.avatar {
+  width: 66px; height: 66px; border-radius: 50%;
+  object-fit: cover; border: 2px solid var(--border-lt);
+}
+
+.id-text { display: flex; flex-direction: column; gap: 1px; }
+
+.id-name { font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+
+.id-sub { font-size: 0.8rem; color: var(--text2); }
+
+.id-btns { display: flex; gap: 7px; margin-top: 8px; }
+
+.right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+
+.right-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+
+.title { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; }
+
+/* ── Buttons ─────────────────────────────────── */
+.b {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--font); font-size: 0.78rem; font-weight: 500;
+  padding: 6px 11px; border-radius: var(--rad-s);
+  border: 1px solid var(--border); background: var(--surface);
+  color: var(--text); cursor: pointer; white-space: nowrap;
+  transition: background .12s, color .12s, border-color .12s;
+}
+.b:hover { background: #edecea; }
+.b svg { flex-shrink: 0; }
+
+.b-p { background: var(--accent); color: var(--accent-t); border-color: var(--accent); }
+.b-p:hover { background: var(--accent-h); border-color: var(--accent-h); }
+
+/* ── Tabs ────────────────────────────────────── */
+.tabs {
+  overflow-x: auto; scrollbar-width: none;
+  margin-bottom: -1px; /* sit on border */
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tabs-row { display: flex; gap: 5px; flex-wrap: wrap; }
+
+.t {
+  font-family: var(--font); font-size: 0.77rem; font-weight: 500;
+  padding: 8px 14px; line-height: 1;
+  border: 1px solid var(--border); border-bottom: none;
+  border-radius: var(--rad-s) var(--rad-s) 0 0;
+  background: var(--surface); color: var(--text);
+  cursor: pointer; white-space: nowrap;
+  transition: background .12s, color .12s, border-color .12s;
+}
+.t:hover { background: #edecea; }
+.t.on { background: var(--accent); color: var(--accent-t); border-color: var(--accent); }
+
+/* ── Main ────────────────────────────────────── */
+.mn { padding: 24px 0 60px; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--rad); overflow: hidden;
+  display: none;              /* JS shows the active one */
+}
+.card.show { display: block; }
+
+.card-hd {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 16px; padding: 14px 18px; border-bottom: 1px solid var(--border-lt);
+}
+.card-hd-l { min-width: 0; }
+
+.card-t { font-size: 0.95rem; font-weight: 700; line-height: 1.35; }
+.card-m { font-size: 0.74rem; color: var(--text2); margin-top: 2px; }
+
+.card-acts { display: flex; gap: 5px; flex-shrink: 0; align-items: center; }
+
+.frame {
+  width: 100%; height: 78vh; min-height: 480px;
+  border: none; display: block; background: var(--bg);
+}
+
+.card-body {
+  padding: 24px 18px; font-size: 0.92rem; line-height: 1.65;
+}
+.card-body h2 { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+.card-body p { margin-bottom: 10px; }
+.card-body a { color: var(--accent); font-weight: 500; }
+.card-body a:hover { text-decoration: underline; }
+.card-body code { font-size: 0.84em; background: #edecea; padding: 2px 5px; border-radius: 3px; }
+
+.empty { text-align: center; padding: 48px 18px; color: var(--text3); }
+
+/* ── Responsive ──────────────────────────────── */
+@media (max-width: 840px) {
+  .hdr-inner { flex-direction: column; gap: 16px; }
+  .right { width: 100%; }
+  .tabs-row { flex-wrap: nowrap; }
+  .frame { height: 60vh; min-height: 320px; }
+}
+@media (max-width: 540px) {
+  .avatar { width: 50px; height: 50px; }
+  .id-name { font-size: 1rem; }
+  .title { font-size: 1.05rem; }
+  .card-hd { flex-direction: column; gap: 10px; }
+  .wrap { padding: 0 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     HEADER
+     ═══════════════════════════════════════════════ -->
+<header class="hdr">
+<div class="wrap hdr-inner">
+  <div class="id">
+    <img class="avatar" src="assets/img/headshot.jpeg" alt="Brendan McCann" width="66" height="66">
+    <div class="id-text">
+      <div class="id-name">Brendan McCann, CFA</div>
+      <div class="id-sub">Manager Research · Data &amp; Analytics · Tool Building</div>
+      <div class="id-btns">
+        <a class="b b-p" href="assets/pdfs/resume.pdf" download>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          Resume
+        </a>
+        <a class="b" href="assets/pdfs/cover-letter.pdf" download>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          Cover Letter
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="right-top">
+      <h1 class="title">Selected Research</h1>
+      <a class="b" href="https://www.morningstar.com/people/brendan-mccann" target="_blank" rel="noreferrer">Morningstar Profile</a>
+    </div>
+    <nav class="tabs" aria-label="Research tabs">
+      <div class="tabs-row" id="TABS"></div>
+    </nav>
+  </div>
+</div>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+     MAIN — panels get built by JS
+     ═══════════════════════════════════════════════ -->
+<main class="mn">
+  <div class="wrap" id="PANELS"></div>
+</main>
+
+<!-- ═══════════════════════════════════════════════
+     CONFIG — edit this section to add/change tabs
+     ═══════════════════════════════════════════════ -->
+<script>
+/**
+ * ┌─────────────────────────────────────────────────┐
+ * │  TABS CONFIG — this is the only thing you edit  │
+ * └─────────────────────────────────────────────────┘
+ *
+ * Each tab is an object with:
+ *
+ *   label  — text on the tab button
+ *   type   — "pdf", "web", or "html"
+ *
+ * For "pdf" tabs:
+ *   file   — path to the PDF (e.g. "assets/pdfs/my-paper.pdf")
+ *   meta   — subtitle text (e.g. "Morningstar · June 2025")
+ *
+ * For "web" tabs:
+ *   url    — full URL to embed
+ *
+ * For "html" tabs:
+ *   html   — raw HTML string to display
+ *
+ * Examples:
+ *
+ *   { label: "My Paper", type: "pdf", file: "assets/pdfs/my-paper.pdf", meta: "Journal · 2025" },
+ *   { label: "Article",  type: "web", url: "https://example.com/article" },
+ *   { label: "Notes",    type: "html", html: "<h2>Notes</h2><p>My notes here.</p>" },
+ */
+
+var TABS = [
+  {
+    label: "Newsletter Article — What Makes an ETF Bad?",
+    type:  "pdf",
+    file:  "assets/pdfs/what-makes-an-etf-bad.pdf",
+    meta:  "Morningstar ETFInvestor · June 2025"
+  },
+  {
+    label: "ETF Investor Newsletter Watchlist",
+    type:  "pdf",
+    file:  "assets/pdfs/etf-investor-newsletter-watchlist.pdf",
+    meta:  "Morningstar ETFInvestor · Data through Nov. 30, 2025"
+  },
+  {
+    label: "Web Article",
+    type:  "web",
+    url:   "https://www.morningstar.com/author/brendan-mccann/articles"
+  },
+  {
+    label: "Media Citations",
+    type:  "html",
+    html:  "<h2>Media Citations</h2><p>Coming soon — add citations here by editing the TABS array in index.html.</p>"
+  },
+  {
+    label: "Tools",
+    type:  "html",
+    html:  "<h2>Tools &amp; Projects</h2><p>Coming soon — add tools here by editing the TABS array in index.html.</p>"
+  },
+  {
+    label: "Notes",
+    type:  "html",
+    html:  "<h2>Research Notes</h2><p>Coming soon — add notes here by editing the TABS array in index.html.</p>"
+  }
+];
+</script>
+
+<!-- ═══════════════════════════════════════════════
+     APP LOGIC — you should not need to edit below
+     ═══════════════════════════════════════════════ -->
+<script>
+(function () {
+  var tabsEl  = document.getElementById("TABS");
+  var panelEl = document.getElementById("PANELS");
+  var active  = 0;
+
+  // Build everything
+  TABS.forEach(function (tab, i) {
+    // --- Tab button ---
+    var btn = document.createElement("button");
+    btn.className = "t" + (i === 0 ? " on" : "");
+    btn.type = "button";
+    btn.textContent = tab.label;
+    btn.addEventListener("click", function () { show(i); });
+    tabsEl.appendChild(btn);
+
+    // --- Panel ---
+    var card = document.createElement("section");
+    card.className = "card" + (i === 0 ? " show" : "");
+    card.id = "panel-" + i;
+
+    if (tab.type === "pdf") {
+      card.innerHTML =
+        '<div class="card-hd">' +
+          '<div class="card-hd-l">' +
+            '<div class="card-t">' + tab.label + '</div>' +
+            (tab.meta ? '<div class="card-m">' + tab.meta + '</div>' : '') +
+          '</div>' +
+          '<div class="card-acts">' +
+            '<a class="b" href="' + tab.file + '" target="_blank">Open</a>' +
+            '<a class="b" href="' + tab.file + '" download>Download</a>' +
+          '</div>' +
+        '</div>' +
+        '<iframe class="frame" src="' + (i === 0 ? tab.file : '') + '" title="' + tab.label + '"></iframe>';
+    }
+    else if (tab.type === "web") {
+      card.innerHTML =
+        '<div class="card-hd">' +
+          '<div class="card-hd-l">' +
+            '<div class="card-t">' + tab.label + '</div>' +
+            '<div class="card-m">Web</div>' +
+          '</div>' +
+          '<div class="card-acts">' +
+            '<a class="b" href="' + tab.url + '" target="_blank">Open in New Tab</a>' +
+          '</div>' +
+        '</div>' +
+        '<iframe class="frame" src="" title="' + tab.label + '"></iframe>';
+    }
+    else {
+      card.innerHTML = '<div class="card-body">' + (tab.html || '') + '</div>';
+    }
+
+    panelEl.appendChild(card);
+  });
+
+  // Show a tab
+  function show(idx) {
+    active = idx;
+
+    // Update tab buttons
+    var btns = tabsEl.querySelectorAll(".t");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].classList.toggle("on", i === idx);
+    }
+
+    // Update panels
+    var panels = panelEl.querySelectorAll(".card");
+    for (var i = 0; i < panels.length; i++) {
+      panels[i].classList.toggle("show", i === idx);
+
+      // Lazy-load iframes only when shown
+      if (i === idx) {
+        var iframe = panels[i].querySelector("iframe");
+        if (iframe && !iframe.src) {
+          var tab = TABS[i];
+          iframe.src = tab.file || tab.url || "";
+        }
+        // Set src if it was cleared
+        if (iframe && iframe.getAttribute("src") === "") {
+          var tab = TABS[i];
+          iframe.src = tab.file || tab.url || "";
+        }
+      }
+    }
+  }
+
+})();
+</script>
+
+</body>
+</html>
