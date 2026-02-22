@@ -8,8 +8,19 @@
 (function () {
   "use strict";
 
-  var tabs      = SITE.tabs;
+  /* ── Safety checks ─────────────────────────────── */
+  if (typeof SITE === "undefined") {
+    console.error("main.js: SITE is not defined. Check that site.config.js loaded before main.js.");
+    return;
+  }
+
   var container = document.getElementById("tabsContainer");
+  if (!container) {
+    console.error("main.js: #tabsContainer not found in the DOM.");
+    return;
+  }
+
+  var tabs      = SITE.tabs;
   var activeIdx = SITE.defaultTab || 0;
 
   // Panels
@@ -99,7 +110,7 @@
 
   /* ── PDF panel ─────────────────────────────────── */
   function showPdf(tab) {
-    panelPdf.hidden    = false;
+    panelPdf.hidden      = false;
     pdfTitle.textContent = tab.title || tab.label;
     pdfMeta.textContent  = tab.meta  || "";
     pdfOpen.href         = tab.file;
@@ -158,5 +169,7 @@
 
   initFromHash();
   window.addEventListener("hashchange", initFromHash);
+
+  console.log("main.js: Loaded successfully. " + tabs.length + " tabs rendered.");
 
 })();
