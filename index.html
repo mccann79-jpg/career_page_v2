@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Selected Research — Brendan McCann</title>
+<title>Selected Work — Brendan McCann</title>
 
 <link rel="icon" href="assets/img/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
@@ -61,9 +61,9 @@ img { display: block; max-width: 100%; }
   position: sticky; top: 0; z-index: 100;
 }
 
-.hdr-inner { display: flex; gap: 36px; align-items: flex-start; }
+.hdr-inner { display: flex; gap: 36px; align-items: flex-end; }
 
-.id { display: flex; gap: 14px; flex-shrink: 0; align-items: flex-start; }
+.id { display: flex; gap: 14px; flex-shrink: 0; align-items: flex-start; padding-bottom: 16px; }
 
 .avatar {
   width: 66px; height: 66px; border-radius: 50%;
@@ -157,6 +157,33 @@ img { display: block; max-width: 100%; }
 
 .empty { text-align: center; padding: 48px 18px; color: var(--text3); }
 
+/* ── Link lists ──────────────────────────────── */
+.link-list, .media-list { list-style: none; padding: 0; }
+
+.link-list li {
+  padding: 14px 0; border-bottom: 1px solid var(--border-lt);
+  display: flex; flex-direction: column; gap: 3px;
+}
+.link-list li:last-child { border-bottom: none; }
+
+.link-desc { font-size: 0.8rem; color: var(--text2); }
+
+.hint { font-size: 0.8rem; color: var(--text3); margin-top: 16px; }
+
+/* ── Media citations ─────────────────────────── */
+.media-list li {
+  padding: 14px 0; border-bottom: 1px solid var(--border-lt);
+  display: flex; align-items: center; gap: 14px;
+}
+.media-list li:last-child { border-bottom: none; }
+
+.media-logo {
+  width: 40px; height: 40px; object-fit: contain; flex-shrink: 0;
+  border-radius: 4px; background: var(--bg); padding: 4px;
+}
+
+.media-info { display: flex; flex-direction: column; gap: 2px; }
+
 /* ── Responsive ──────────────────────────────── */
 @media (max-width: 840px) {
   .hdr-inner { flex-direction: column; gap: 16px; }
@@ -186,13 +213,13 @@ img { display: block; max-width: 100%; }
       <div class="id-name">Brendan McCann, CFA</div>
       <div class="id-sub">Manager Research · Data &amp; Analytics · Tool Building</div>
       <div class="id-btns">
+        <a class="b b-p" href="https://www.morningstar.com/people/brendan-mccann" target="_blank" rel="noreferrer">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          Morningstar Profile
+        </a>
         <a class="b b-p" href="assets/pdfs/resume.pdf" download>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
           Resume
-        </a>
-        <a class="b" href="assets/pdfs/cover-letter.pdf" download>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-          Cover Letter
         </a>
       </div>
     </div>
@@ -200,8 +227,7 @@ img { display: block; max-width: 100%; }
 
   <div class="right">
     <div class="right-top">
-      <h1 class="title">Selected Research</h1>
-      <a class="b" href="https://www.morningstar.com/people/brendan-mccann" target="_blank" rel="noreferrer">Morningstar Profile</a>
+      <h1 class="title">Selected Work</h1>
     </div>
     <nav class="tabs" aria-label="Research tabs">
       <div class="tabs-row" id="TABS"></div>
@@ -250,36 +276,59 @@ img { display: block; max-width: 100%; }
 
 var TABS = [
   {
-    label: "Newsletter Article — What Makes an ETF Bad?",
+    label: "Newsletter Article",
     type:  "pdf",
     file:  "assets/pdfs/what-makes-an-etf-bad.pdf",
     meta:  "Morningstar ETFInvestor · June 2025"
   },
   {
-    label: "ETF Investor Newsletter Watchlist",
+    label: "Fund Rating",
     type:  "pdf",
-    file:  "assets/pdfs/etf-investor-newsletter-watchlist.pdf",
-    meta:  "Morningstar ETFInvestor · Data through Nov. 30, 2025"
+    file:  "assets/pdfs/fund-rating.pdf",
+    meta:  "Morningstar Manager Research"
   },
   {
-    label: "Web Article",
-    type:  "web",
-    url:   "https://www.morningstar.com/author/brendan-mccann/articles"
+    label: "Web Articles",
+    type:  "html",
+    html:  "<h2>Published Articles</h2>" +
+           "<ul class='link-list'>" +
+           "  <li>" +
+           "    <a href='https://www.morningstar.com/people/brendan-mccann' target='_blank'>Morningstar.com Author Page</a>" +
+           "    <span class='link-desc'>All published web articles on Morningstar.com</span>" +
+           "  </li>" +
+           "  <li>" +
+           "    <a href='https://www.morningstar.com/REPLACE-WITH-ARTICLE-URL' target='_blank'>Article Title Here</a>" +
+           "    <span class='link-desc'>Brief description of the article</span>" +
+           "  </li>" +
+           "</ul>" +
+           "<p class='hint'>A sample of my work for Morningstar.com</p>"
   },
   {
     label: "Media Citations",
     type:  "html",
-    html:  "<h2>Media Citations</h2><p>Coming soon — add citations here by editing the TABS array in index.html.</p>"
+    html:  "<h2>Media Citations</h2>" +
+           "<ul class='media-list'>" +
+           "  <li>" +
+           "    <img class='media-logo' src='assets/img/logos/example-logo.png' alt='Publication'>" +
+           "    <div class='media-info'>" +
+           "      <a href='https://example.com/article-url' target='_blank'>Article or Segment Title</a>" +
+           "      <span class='link-desc'>Publication Name · Jan 2025</span>" +
+           "    </div>" +
+           "  </li>" +
+           "  <li>" +
+           "    <img class='media-logo' src='assets/img/logos/example-logo.png' alt='Publication'>" +
+           "    <div class='media-info'>" +
+           "      <a href='https://example.com/another-url' target='_blank'>Another Citation Title</a>" +
+           "      <span class='link-desc'>Publication Name · Dec 2024</span>" +
+           "    </div>" +
+           "  </li>" +
+           "</ul>" +
+           "<p class='hint'>A sample of my media citations.</p>"
   },
   {
     label: "Tools",
     type:  "html",
     html:  "<h2>Tools &amp; Projects</h2><p>Coming soon — add tools here by editing the TABS array in index.html.</p>"
-  },
-  {
-    label: "Notes",
-    type:  "html",
-    html:  "<h2>Research Notes</h2><p>Coming soon — add notes here by editing the TABS array in index.html.</p>"
   }
 ];
 </script>
