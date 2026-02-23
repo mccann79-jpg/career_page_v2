@@ -396,6 +396,7 @@ var TABS = [
     card.id = "panel-" + i;
 
     if (tab.type === "pdf") {
+      var pdfSrc = tab.file + '#view=FitH&toolbar=1';
       card.innerHTML =
         '<div class="card-hd">' +
           '<div class="card-hd-l">' +
@@ -407,7 +408,7 @@ var TABS = [
             '<a class="b" href="' + tab.file + '" download>Download</a>' +
           '</div>' +
         '</div>' +
-        '<iframe class="frame" src="' + (i === 0 ? tab.file : '') + '" title="' + tab.label + '"></iframe>';
+        '<iframe class="frame" src="' + (i === 0 ? pdfSrc : '') + '" title="' + tab.label + '"></iframe>';
     }
     else if (tab.type === "web") {
       card.innerHTML =
@@ -445,7 +446,9 @@ var TABS = [
         var iframe = panels[i].querySelector("iframe");
         if (iframe && (!iframe.src || iframe.getAttribute("src") === "")) {
           var tab = TABS[i];
-          iframe.src = tab.file || tab.url || "";
+          var src = tab.file || tab.url || "";
+          if (tab.type === "pdf" && src) { src += '#view=FitH&toolbar=1'; }
+          iframe.src = src;
         }
       }
     }
