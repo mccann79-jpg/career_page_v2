@@ -12,11 +12,11 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 /* ═══════════════════════════════════════════════════
-   CSS — all styles inline to avoid path issues
+   CSS
    ═══════════════════════════════════════════════════ */
 :root {
   --bg: #f3f2ef;
@@ -25,19 +25,17 @@
   --border-lt: #eae7e2;
   --text: #1a1a1a;
   --text2: #5c5c5c;
-  --text3: #999;
+  --text3: #aaa;
   --accent: #263544;
   --accent-h: #1a2633;
   --accent-t: #fff;
   --font: 'DM Sans', system-ui, sans-serif;
-  --serif: 'Newsreader', Georgia, serif;
   --rad: 8px;
   --rad-s: 5px;
   --max: 1080px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { font-size: 16px; -webkit-font-smoothing: antialiased; }
 
 body {
@@ -51,95 +49,127 @@ body {
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
 
-.wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
-
 /* ── Header ──────────────────────────────────── */
 .hdr {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-  padding: 24px 0 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
   position: sticky; top: 0; z-index: 100;
 }
 
-.hdr-inner { display: flex; gap: 36px; align-items: flex-end; }
+.hdr-wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
 
-.id { display: flex; gap: 14px; flex-shrink: 0; align-items: flex-start; padding-bottom: 16px; }
+/* Row 1: photo + name on left, buttons on right */
+.hdr-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+  gap: 20px;
+}
+
+.id { display: flex; gap: 14px; align-items: center; }
 
 .avatar {
-  width: 66px; height: 66px; border-radius: 50%;
+  width: 78px; height: 78px; border-radius: 50%;
   object-fit: cover; border: 2px solid var(--border-lt);
 }
 
-.id-text { display: flex; flex-direction: column; gap: 1px; }
+.id-text { display: flex; flex-direction: column; }
+.id-name { font-size: 1.3rem; font-weight: 700; line-height: 1.25; }
+.id-sub { font-size: 0.88rem; color: var(--text2); margin-top: 2px; }
 
-.id-name { font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+.id-btns { display: flex; gap: 6px; margin-top: 10px; }
 
-.id-sub { font-size: 0.8rem; color: var(--text2); }
+.hdr-actions { display: flex; gap: 6px; align-items: center; }
 
-.id-btns { display: flex; gap: 7px; margin-top: 8px; }
+/* Row 2: "Selected Work" label + tab buttons */
+.tab-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-top: 1px solid var(--border-lt);
+}
 
-.right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.tab-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 12px 20px 12px 0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 
-.right-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.tabs-row {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-bottom: -1px;
+}
+.tabs-row::-webkit-scrollbar { display: none; }
 
-.title { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; }
+.t {
+  font-family: var(--font); font-size: 0.8rem; font-weight: 500;
+  padding: 12px 18px; line-height: 1;
+  border: none; border-bottom: 2px solid transparent;
+  background: transparent; color: var(--text2);
+  cursor: pointer; white-space: nowrap;
+  transition: color .15s, border-color .15s;
+}
+.t:hover { color: var(--text); }
+.t.on {
+  color: var(--accent);
+  font-weight: 700;
+  border-bottom-color: var(--accent);
+}
 
 /* ── Buttons ─────────────────────────────────── */
 .b {
   display: inline-flex; align-items: center; gap: 5px;
-  font-family: var(--font); font-size: 0.78rem; font-weight: 500;
-  padding: 6px 11px; border-radius: var(--rad-s);
+  font-family: var(--font); font-size: 0.76rem; font-weight: 600;
+  padding: 6px 12px; border-radius: var(--rad-s);
   border: 1px solid var(--border); background: var(--surface);
   color: var(--text); cursor: pointer; white-space: nowrap;
-  transition: background .12s, color .12s, border-color .12s;
+  transition: all .15s;
 }
-.b:hover { background: #edecea; }
+.b:hover { background: #f0eee9; }
 .b svg { flex-shrink: 0; }
 
 .b-p { background: var(--accent); color: var(--accent-t); border-color: var(--accent); }
 .b-p:hover { background: var(--accent-h); border-color: var(--accent-h); }
 
-/* ── Tabs ────────────────────────────────────── */
-.tabs {
-  overflow-x: auto; scrollbar-width: none;
-  margin-bottom: -1px; /* sit on border */
-}
-.tabs::-webkit-scrollbar { display: none; }
-
-.tabs-row { display: flex; gap: 5px; flex-wrap: wrap; }
-
-.t {
-  font-family: var(--font); font-size: 0.77rem; font-weight: 500;
-  padding: 8px 14px; line-height: 1;
-  border: 1px solid var(--border); border-bottom: none;
-  border-radius: var(--rad-s) var(--rad-s) 0 0;
-  background: var(--surface); color: var(--text);
-  cursor: pointer; white-space: nowrap;
-  transition: background .12s, color .12s, border-color .12s;
-}
-.t:hover { background: #edecea; }
-.t.on { background: var(--accent); color: var(--accent-t); border-color: var(--accent); }
-
 /* ── Main ────────────────────────────────────── */
-.mn { padding: 24px 0 60px; }
+.mn {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 20px 24px 60px;
+}
 
 .card {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--rad); overflow: hidden;
-  display: none;              /* JS shows the active one */
+  display: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 .card.show { display: block; }
 
 .card-hd {
-  display: flex; align-items: flex-start; justify-content: space-between;
-  gap: 16px; padding: 14px 18px; border-bottom: 1px solid var(--border-lt);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 12px 18px; border-bottom: 1px solid var(--border-lt);
 }
 .card-hd-l { min-width: 0; }
 
-.card-t { font-size: 0.95rem; font-weight: 700; line-height: 1.35; }
-.card-m { font-size: 0.74rem; color: var(--text2); margin-top: 2px; }
+.card-t { font-size: 0.9rem; font-weight: 700; line-height: 1.35; }
+.card-m { font-size: 0.72rem; color: var(--text2); margin-top: 1px; }
 
-.card-acts { display: flex; gap: 5px; flex-shrink: 0; align-items: center; }
+.card-acts { display: flex; gap: 4px; flex-shrink: 0; align-items: center; }
 
 .frame {
   width: 100%; height: 78vh; min-height: 480px;
@@ -147,15 +177,12 @@ img { display: block; max-width: 100%; }
 }
 
 .card-body {
-  padding: 24px 18px; font-size: 0.92rem; line-height: 1.65;
+  padding: 28px 24px; font-size: 0.92rem; line-height: 1.65;
 }
-.card-body h2 { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+.card-body h2 { font-family: var(--font); font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
 .card-body p { margin-bottom: 10px; }
-.card-body a { color: var(--accent); font-weight: 500; }
+.card-body a { color: var(--accent); font-weight: 600; }
 .card-body a:hover { text-decoration: underline; }
-.card-body code { font-size: 0.84em; background: #edecea; padding: 2px 5px; border-radius: 3px; }
-
-.empty { text-align: center; padding: 48px 18px; color: var(--text3); }
 
 /* ── Link lists ──────────────────────────────── */
 .link-list, .media-list { list-style: none; padding: 0; }
@@ -166,9 +193,9 @@ img { display: block; max-width: 100%; }
 }
 .link-list li:last-child { border-bottom: none; }
 
-.link-desc { font-size: 0.8rem; color: var(--text2); }
+.link-desc { font-size: 0.78rem; color: var(--text2); }
 
-.hint { font-size: 0.8rem; color: var(--text3); margin-top: 16px; }
+.hint { font-size: 0.78rem; color: var(--text3); margin-top: 18px; font-style: italic; }
 
 /* ── Media citations ─────────────────────────── */
 .media-list li {
@@ -178,25 +205,29 @@ img { display: block; max-width: 100%; }
 .media-list li:last-child { border-bottom: none; }
 
 .media-logo {
-  width: 40px; height: 40px; object-fit: contain; flex-shrink: 0;
+  width: 70px; height: 70px; object-fit: contain; flex-shrink: 0;
   border-radius: 4px; background: var(--bg); padding: 4px;
 }
 
 .media-info { display: flex; flex-direction: column; gap: 2px; }
 
-/* ── Responsive ──────────────────────────────── */
-@media (max-width: 840px) {
-  .hdr-inner { flex-direction: column; gap: 16px; }
-  .right { width: 100%; }
-  .tabs-row { flex-wrap: nowrap; }
-  .frame { height: 60vh; min-height: 320px; }
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border-lt);
+  margin: 28px 0;
 }
-@media (max-width: 540px) {
-  .avatar { width: 50px; height: 50px; }
-  .id-name { font-size: 1rem; }
-  .title { font-size: 1.05rem; }
+
+/* ── Responsive ──────────────────────────────── */
+@media (max-width: 700px) {
+  .hdr-top { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .hdr-wrap { padding: 0 16px; }
+  .tab-label { display: none; }
+  .t { padding: 12px 14px; font-size: 0.76rem; }
+  .mn { padding: 16px 16px 60px; }
+  .avatar { width: 60px; height: 60px; }
+  .id-name { font-size: 0.95rem; }
   .card-hd { flex-direction: column; gap: 10px; }
-  .wrap { padding: 0 16px; }
+  .frame { height: 60vh; min-height: 320px; }
 }
 </style>
 </head>
@@ -206,42 +237,36 @@ img { display: block; max-width: 100%; }
      HEADER
      ═══════════════════════════════════════════════ -->
 <header class="hdr">
-<div class="wrap hdr-inner">
-  <div class="id">
-    <img class="avatar" src="assets/img/headshot.jpeg" alt="Brendan McCann" width="66" height="66">
-    <div class="id-text">
-      <div class="id-name">Brendan McCann, CFA</div>
-      <div class="id-sub">Manager Research · Data &amp; Analytics · Tool Building</div>
-      <div class="id-btns">
-        <a class="b b-p" href="https://www.morningstar.com/people/brendan-mccann" target="_blank" rel="noreferrer">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          Morningstar Profile
-        </a>
-        <a class="b b-p" href="assets/pdfs/resume.pdf" download>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-          Resume
-        </a>
+  <div class="hdr-wrap">
+    <div class="hdr-top">
+      <div class="id">
+        <img class="avatar" src="assets/img/headshot.jpeg" alt="Brendan McCann" width="78" height="78">
+        <div class="id-text">
+          <div class="id-name">Brendan McCann, CFA</div>
+          <div class="id-sub">Manager Research · Data &amp; Analytics · Tool Building</div>
+          <div class="id-btns">
+            <a class="b b-p" href="https://www.morningstar.com/people/brendan-mccann" target="_blank" rel="noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              Morningstar Profile
+            </a>
+            <a class="b b-p" href="assets/pdfs/resume.pdf" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+              Resume
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="right">
-    <div class="right-top">
-      <h1 class="title">Selected Work</h1>
+    <div class="tab-bar">
+      <nav class="tabs-row" id="TABS" aria-label="Research tabs"></nav>
     </div>
-    <nav class="tabs" aria-label="Research tabs">
-      <div class="tabs-row" id="TABS"></div>
-    </nav>
   </div>
-</div>
 </header>
 
 <!-- ═══════════════════════════════════════════════
      MAIN — panels get built by JS
      ═══════════════════════════════════════════════ -->
-<main class="mn">
-  <div class="wrap" id="PANELS"></div>
-</main>
+<main class="mn" id="PANELS"></main>
 
 <!-- ═══════════════════════════════════════════════
      CONFIG — edit this section to add/change tabs
@@ -276,6 +301,54 @@ img { display: block; max-width: 100%; }
 
 var TABS = [
   {
+    label: "Articles & Media",
+    type:  "html",
+    html:  "<h2>Published Articles</h2>" +
+           "<ul class='media-list'>" +
+           "  <li>" +
+           "    <img class='media-logo' src='assets/img/morningstar-logo.png' alt='Morningstar'>" +
+           "    <div class='media-info'>" +
+           "      <a href='https://www.morningstar.com/people/brendan-mccann' target='_blank'>Morningstar.com Author Page</a>" +
+           "      <span class='link-desc'>All published web articles on Morningstar.com</span>" +
+           "    </div>" +
+           "  </li>" +
+           "  <li>" +
+           "    <img class='media-logo' src='assets/img/morningstar-logo.png' alt='Morningstar'>" +
+           "    <div class='media-info'>" +
+           "      <a href='https://www.morningstar.com/REPLACE-WITH-ARTICLE-URL' target='_blank'>Article Title Here</a>" +
+           "      <span class='link-desc'>Brief description of the article</span>" +
+           "    </div>" +
+           "  </li>" +
+           "</ul>" +
+           "<p class='hint'>A sample of my work for Morningstar.com</p>" +
+           "<hr class='section-divider'>" +
+           "<h2>Media Citations</h2>" +
+           "<ul class='media-list'>" +
+           "  <li>" +
+           "    <img class='media-logo' src='assets/img/CNBC_logo.svg.png' alt='Publication'>" +
+           "    <div class='media-info'>" +
+           "      <a href='https://www.cnbc.com/2025/10/07/sp-500-where-to-invest-in-case-of-a-pullback.html' target='_blank'>S&P 500 continues to notch new highs. Where to invest in case of a pullback</a>" +
+           "      <span class='link-desc'>CNBC · October 2025</span>" +
+           "    </div>" +
+           "  </li>" +
+           "  <li>" +
+           "    <img class='media-logo' src='assets/img/barrons logo.jpg' alt='Publication'>" +
+           "    <div class='media-info'>" +
+           "      <a href='https://www.barrons.com/articles/young-investor-6-low-cost-funds-2e45e6dd?gaa_at=eafs&gaa_n=AWEtsqewSmv2i1xnF_XUubfd1hL2ibtpJ1PH507TNY9UsgDb_YP4TN01pFvSTub9gGs%3D&gaa_ts=699cb13e&gaa_sig=yxtG1N8d9YYUH0X5rqGLn95_XcJhgUA8Ta2DnAXea8j_1GKGwAeV3B3kONiEBj-3b-jVyqtTXsrSBWgIKWaXOQ%3D%3D' target='_blank'>Gen Zers Need Stocks to Get Rich. 6 Low-Cost Funds to Do Just That.</a>" +
+           "      <span class='link-desc'>Barron's · June 2025</span>" +
+           "    </div>" +
+           "  </li>" +
+           "  <li>" +
+           "    <img class='media-logo' src='assets/img/citywire-logo.png' alt='Publication'>" +
+           "    <div class='media-info'>" +
+           "      <a href='https://citywire.com/pro-buyer/news/etfs-win-118bn-in-august-as-bonds-break-records-and-small-caps-surge/a2473432' target='_blank'>ETFs win $118bn in August as bonds break records and small caps surge</a>" +
+           "      <span class='link-desc'>Citywire · September 2025</span>" +
+           "    </div>" +
+           "  </li>" +
+           "</ul>" +
+           "<p class='hint'>A sample of my media citations.</p>"
+  },
+  {
     label: "Newsletter Article",
     type:  "pdf",
     file:  "assets/pdfs/what-makes-an-etf-bad.pdf",
@@ -288,42 +361,10 @@ var TABS = [
     meta:  "Morningstar Manager Research"
   },
   {
-    label: "Web Articles",
-    type:  "html",
-    html:  "<h2>Published Articles</h2>" +
-           "<ul class='link-list'>" +
-           "  <li>" +
-           "    <a href='https://www.morningstar.com/people/brendan-mccann' target='_blank'>Morningstar.com Author Page</a>" +
-           "    <span class='link-desc'>All published web articles on Morningstar.com</span>" +
-           "  </li>" +
-           "  <li>" +
-           "    <a href='https://www.morningstar.com/REPLACE-WITH-ARTICLE-URL' target='_blank'>Article Title Here</a>" +
-           "    <span class='link-desc'>Brief description of the article</span>" +
-           "  </li>" +
-           "</ul>" +
-           "<p class='hint'>A sample of my work for Morningstar.com</p>"
-  },
-  {
-    label: "Media Citations",
-    type:  "html",
-    html:  "<h2>Media Citations</h2>" +
-           "<ul class='media-list'>" +
-           "  <li>" +
-           "    <img class='media-logo' src='assets/img/logos/example-logo.png' alt='Publication'>" +
-           "    <div class='media-info'>" +
-           "      <a href='https://example.com/article-url' target='_blank'>Article or Segment Title</a>" +
-           "      <span class='link-desc'>Publication Name · Jan 2025</span>" +
-           "    </div>" +
-           "  </li>" +
-           "  <li>" +
-           "    <img class='media-logo' src='assets/img/logos/example-logo.png' alt='Publication'>" +
-           "    <div class='media-info'>" +
-           "      <a href='https://example.com/another-url' target='_blank'>Another Citation Title</a>" +
-           "      <span class='link-desc'>Publication Name · Dec 2024</span>" +
-           "    </div>" +
-           "  </li>" +
-           "</ul>" +
-           "<p class='hint'>A sample of my media citations.</p>"
+    label: "Canada Fee Study",
+    type:  "pdf",
+    file:  "assets/pdfs/Canadian_Fee_Study_2025.pdf",
+    meta:  "Morningstar Manager Research · 2025"
   },
   {
     label: "Tools",
@@ -342,9 +383,7 @@ var TABS = [
   var panelEl = document.getElementById("PANELS");
   var active  = 0;
 
-  // Build everything
   TABS.forEach(function (tab, i) {
-    // --- Tab button ---
     var btn = document.createElement("button");
     btn.className = "t" + (i === 0 ? " on" : "");
     btn.type = "button";
@@ -352,7 +391,6 @@ var TABS = [
     btn.addEventListener("click", function () { show(i); });
     tabsEl.appendChild(btn);
 
-    // --- Panel ---
     var card = document.createElement("section");
     card.className = "card" + (i === 0 ? " show" : "");
     card.id = "panel-" + i;
@@ -391,30 +429,21 @@ var TABS = [
     panelEl.appendChild(card);
   });
 
-  // Show a tab
   function show(idx) {
     active = idx;
 
-    // Update tab buttons
     var btns = tabsEl.querySelectorAll(".t");
     for (var i = 0; i < btns.length; i++) {
       btns[i].classList.toggle("on", i === idx);
     }
 
-    // Update panels
     var panels = panelEl.querySelectorAll(".card");
     for (var i = 0; i < panels.length; i++) {
       panels[i].classList.toggle("show", i === idx);
 
-      // Lazy-load iframes only when shown
       if (i === idx) {
         var iframe = panels[i].querySelector("iframe");
-        if (iframe && !iframe.src) {
-          var tab = TABS[i];
-          iframe.src = tab.file || tab.url || "";
-        }
-        // Set src if it was cleared
-        if (iframe && iframe.getAttribute("src") === "") {
+        if (iframe && (!iframe.src || iframe.getAttribute("src") === "")) {
           var tab = TABS[i];
           iframe.src = tab.file || tab.url || "";
         }
