@@ -541,6 +541,20 @@ var TABS = [
     if (activeBtn) { moveSlider(activeBtn); }
   });
 
+  // Arrow key navigation between tabs (global)
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      var tag = document.activeElement && document.activeElement.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      e.preventDefault();
+      var next = active + (e.key === "ArrowRight" ? 1 : -1);
+      if (next >= 0 && next < TABS.length) {
+        show(next);
+        tabsEl.querySelectorAll(".t")[next].focus();
+      }
+    }
+  });
+
   function show(idx) {
     active = idx;
 
