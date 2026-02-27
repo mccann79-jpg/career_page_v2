@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Selected Work — Brendan McCann</title>
+<meta name="description" content="Manager Research · Data & Analytics · Tool Building">
+<meta property="og:title" content="Selected Work — Brendan McCann, CFA">
+<meta property="og:description" content="Manager Research · Data & Analytics · Tool Building">
+<meta property="og:image" content="https://mccann79-jpg.github.io/career_page_v2/assets/img/headshot.jpeg">
+<meta property="og:url" content="https://mccann79-jpg.github.io/career_page_v2/">
+<meta property="og:type" content="website">
 
 <link rel="icon" href="assets/img/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
@@ -379,21 +385,21 @@ var TABS = [
     html:  "<h2>Published Articles</h2>" +
            "<ul class='media-list'>" +
            "  <li>" +
-          "     <img class='media-logo' src='assets/img/article_preview.png.avif' alt='Morningstar'>" +
+          "     <img class='media-logo' src='assets/img/article_preview.png.avif' alt='Morningstar' loading='lazy'>" +
            "    <div class='media-info'>" +
            "      <a href='https://www.morningstar.com/funds/international-etfs-shatter-investing-record-2025' target='_blank'>International ETFs Shatter Investing Record in 2025</a>" +
            "      <span class='link-desc'>Monthly ETF Flows</span>" +
            "    </div>" +
            "  </li>" +
            "  <li>" +
-           "    <img class='media-logo' src='assets/img/rating showcase preview.png.avif' alt='Morningstar'>" +
+           "    <img class='media-logo' src='assets/img/rating showcase preview.png.avif' alt='Morningstar' loading='lazy'>" +
            "    <div class='media-info'>" +
            "      <a href='https://www.morningstar.com/funds/this-vanguard-etf-covers-entire-stock-market' target='_blank'>This Vanguard ETF Covers the Entire Stock Market</a>" +
            "      <span class='link-desc'>ETF Rating Showcase</span>" +
            "    </div>" +
            "  </li>" +
            "  <li>" +
-           "    <img class='media-logo' src='assets/img/morningstar.svg' alt='Morningstar'>" +
+           "    <img class='media-logo' src='assets/img/morningstar.svg' alt='Morningstar' loading='lazy'>" +
            "    <div class='media-info'>" +
            "      <a href='https://www.morningstar.com/people/brendan-mccann' target='_blank'>Morningstar.com Author Page</a>" +
            "      <span class='link-desc'>All published web articles on Morningstar.com</span>" +
@@ -405,21 +411,21 @@ var TABS = [
            "<h2>Media Citations</h2>" +
            "<ul class='media-list'>" +
            "  <li>" +
-           "    <img class='media-logo' src='assets/img/CNBC_logo.svg.png' alt='Publication'>" +
+           "    <img class='media-logo' src='assets/img/CNBC_logo.svg.png' alt='Publication' loading='lazy'>" +
            "    <div class='media-info'>" +
            "      <a href='https://www.cnbc.com/2025/10/07/sp-500-where-to-invest-in-case-of-a-pullback.html' target='_blank'>S&P 500 continues to notch new highs. Where to invest in case of a pullback</a>" +
            "      <span class='link-desc'>CNBC · October 2025</span>" +
            "    </div>" +
            "  </li>" +
            "  <li>" +
-           "    <img class='media-logo' src='assets/img/barrons logo.jpg' alt='Publication'>" +
+           "    <img class='media-logo' src='assets/img/barrons logo.jpg' alt='Publication' loading='lazy'>" +
            "    <div class='media-info'>" +
            "      <a href='https://www.barrons.com/articles/young-investor-6-low-cost-funds-2e45e6dd?gaa_at=eafs&gaa_n=AWEtsqewSmv2i1xnF_XUubfd1hL2ibtpJ1PH507TNY9UsgDb_YP4TN01pFvSTub9gGs%3D&gaa_ts=699cb13e&gaa_sig=yxtG1N8d9YYUH0X5rqGLn95_XcJhgUA8Ta2DnAXea8j_1GKGwAeV3B3kONiEBj-3b-jVyqtTXsrSBWgIKWaXOQ%3D%3D' target='_blank'>Gen Zers Need Stocks to Get Rich. 6 Low-Cost Funds to Do Just That.</a>" +
            "      <span class='link-desc'>Barron's · June 2025</span>" +
            "    </div>" +
            "  </li>" +
            "  <li>" +
-           "    <img class='media-logo' src='assets/img/citywire-logo.png' alt='Publication'>" +
+           "    <img class='media-logo' src='assets/img/citywire-logo.png' alt='Publication' loading='lazy'>" +
            "    <div class='media-info'>" +
            "      <a href='https://citywire.com/pro-buyer/news/etfs-win-118bn-in-august-as-bonds-break-records-and-small-caps-surge/a2473432' target='_blank'>ETFs win $118bn in August as bonds break records and small caps surge</a>" +
            "      <span class='link-desc'>Citywire · September 2025</span>" +
@@ -528,6 +534,12 @@ var TABS = [
       });
     });
   }
+
+  // Reposition slider on window resize
+  window.addEventListener("resize", function () {
+    var activeBtn = tabsEl.querySelector(".t.on");
+    if (activeBtn) { moveSlider(activeBtn); }
+  });
 
   function show(idx) {
     active = idx;
